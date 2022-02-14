@@ -348,8 +348,8 @@ var SwaggerInfo = swaggerInfo{
 	Host:        "",
 	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "Motion CRM RESTful APIs",
-	Description: "This is a documentation for Motion CRM RESTful APIs. <br>",
+	Title:       "Go Clean Arch RESTful APIs",
+	Description: "This is a documentation for Go Clean Arch RESTful APIs. <br>",
 }
 
 type s struct{}

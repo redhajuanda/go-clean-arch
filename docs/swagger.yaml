@@ -92,8 +92,8 @@ definitions:
     type: object
 info:
   contact: {}
-  description: This is a documentation for Motion CRM RESTful APIs. <br>
-  title: Motion CRM RESTful APIs
+  description: This is a documentation for Go Clean Arch RESTful APIs. <br>
+  title: Go Clean Arch RESTful APIs
 paths:
   /auth/login:
     post:

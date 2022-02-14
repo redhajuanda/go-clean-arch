@@ -4,8 +4,8 @@ import (
 	"go-clean-arch/cmd"
 )
 
-// @title Motion CRM RESTful APIs
-// @description This is a documentation for Motion CRM RESTful APIs. <br>
+// @title Go Clean Arch RESTful APIs
+// @description This is a documentation for Go Clean Arch RESTful APIs. <br>
 
 // @securityDefinitions.basic BasicAuth
 // @in header

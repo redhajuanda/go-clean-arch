@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a documentation for Motion CRM RESTful APIs. \u003cbr\u003e",
-        "title": "Motion CRM RESTful APIs",
+        "description": "This is a documentation for Go Clean Arch RESTful APIs. \u003cbr\u003e",
+        "title": "Go Clean Arch RESTful APIs",
         "contact": {}
     },
     "paths": {
