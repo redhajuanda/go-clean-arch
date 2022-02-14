@@ -1,0 +1,203 @@
+definitions:
+  Bad:
+    properties:
+      error_code:
+        example: "00002"
+        type: string
+      message:
+        example: your request is in a bad format
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  Forbidden:
+    properties:
+      error_code:
+        example: "00004"
+        type: string
+      message:
+        example: you don't have access to this resource
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  Internal:
+    properties:
+      error_code:
+        example: "00000"
+        type: string
+      message:
+        example: we encountered an error while processing your request (internal server
+          error)
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  auth.LoginResponse:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        type: string
+      expires_at:
+        example: "2022-01-18T10:45:40Z"
+        type: string
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        type: string
+    type: object
+  auth.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        type: string
+    required:
+    - refresh_token
+    type: object
+  auth.RequestLogin:
+    properties:
+      password:
+        example: password1234
+        minLength: 8
+        type: string
+      username:
+        example: redhajuanda
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  domain.User:
+    properties:
+      full_name:
+        type: string
+      id:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  response.Response:
+    properties:
+      data: {}
+      message:
+        example: success
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is a documentation for Motion CRM RESTful APIs. <br>
+  title: Motion CRM RESTful APIs
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: ' '
+        in: body
+        name: payload
+        schema:
+          $ref: '#/definitions/auth.RequestLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/auth.LoginResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Bad'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Internal'
+      summary: Login
+      tags:
+      - Mitra Auth
+  /auth/token/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh access token
+      parameters:
+      - description: ' '
+        in: body
+        name: payload
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Refresh token success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/auth.LoginResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Bad'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Forbidden'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Internal'
+      summary: Refresh access token
+      tags:
+      - Mitra Auth
+  /me:
+    get:
+      consumes:
+      - application/json
+      description: Get me
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.User'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Internal'
+      security:
+      - BearerToken: []
+      summary: Get me
+      tags:
+      - Mitra
+securityDefinitions:
+  BasicAuth:
+    type: basic
+  BearerToken:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
