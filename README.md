@@ -1,4 +1,4 @@
-# Motion PayLater Service
+# Go Clean Architecture Service
 
 ## API
 Please make sure you create ```.env``` file first, take a look at ```.env.example``` for the layout of environment variables.
@@ -34,9 +34,7 @@ make migrate-new
 ```
 
 ## Scheduler
-There are 3 schedulers for this service:
-- transaction
-- reconcile
+There are 1 scheduler for this service:
 - cleanup
 
 To run a scheduler, use the command below:
