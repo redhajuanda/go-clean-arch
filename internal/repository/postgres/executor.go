@@ -10,4 +10,6 @@ import (
 type DBI interface {
 	Model(model ...interface{}) *orm.Query
 	ModelContext(c context.Context, model ...interface{}) *orm.Query
+	Exec(query interface{}, params ...interface{}) (orm.Result, error)
+	ExecContext(c context.Context, query interface{}, params ...interface{}) (orm.Result, error)
 }

@@ -1,4 +1,4 @@
-package config
+package configs
 
 import (
 	"log"
@@ -25,7 +25,7 @@ type Config struct {
 	}
 
 	JWT struct {
-		SigningKeyMitra string `envconfig:"JWT_SIGNING_KEY_MITRA" required:"true"`
+		SigningKey      string `envconfig:"JWT_SIGNING_KEY" required:"true"`
 		SigningKeyCRM   string `envconfig:"JWT_SIGNING_KEY_CRM" required:"true"`
 		TokenExpiration int    `envconfig:"JWT_TOKEN_EXPIRATION" required:"true"`
 	}
@@ -36,6 +36,15 @@ type Config struct {
 		Username string `envconfig:"DB_USERNAME" required:"true"`
 		Password string `envconfig:"DB_PASSWORD" required:"true"`
 		DBName   string `envconfig:"DB_NAME" required:"true"`
+	}
+
+	Scheduler struct {
+		CleanUpPattern string `envconfig:"SCHEDULER_CLEANUP_PATTERN" required:"TRUE"`
+	}
+
+	OpenTelemetry struct {
+		JaegerURL string `envconfig:"OTEL_JAEGER_URL" required:"TRUE"`
+		Sampled   bool   `envconfig:"OTEL_SAMPLED"`
 	}
 }
 

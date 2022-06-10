@@ -15,6 +15,10 @@ func Now() time.Time {
 	return time.Now().UTC()
 }
 
+func NowJkt() time.Time {
+	return time.Now().In(LocJkt())
+}
+
 func ParseDateString(oldFormat string, newFormat string, date string) (string, error) {
 	dateTime, err := time.Parse(oldFormat, date)
 	if err != nil {

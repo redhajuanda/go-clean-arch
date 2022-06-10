@@ -3,14 +3,14 @@ package db
 import (
 	"context"
 	"fmt"
-	"go-clean-arch/config"
+	"go-clean-arch/configs"
 	"log"
 
 	"github.com/go-pg/pg/v10"
 )
 
 // NewGoPG creates a new postgres connection
-func NewGoPG(cfg *config.Config) *pg.DB {
+func NewGoPG(cfg *configs.Config) *pg.DB {
 	connString := fmt.Sprintf("postgres://%s:%s@%s:%v/%s?sslmode=disable",
 		cfg.Database.Username,
 		cfg.Database.Password,

@@ -3,7 +3,7 @@ package auth
 import validation "github.com/go-ozzo/ozzo-validation/v4"
 
 type RequestLogin struct {
-	Username string `json:"username" validate:"required" example:"redhajuanda"`
+	Username string `json:"username" validate:"required" example:"admin"`
 	Password string `json:"password" validate:"required,min=8" example:"password1234"`
 }
 

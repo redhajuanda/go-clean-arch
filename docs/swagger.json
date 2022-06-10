@@ -16,7 +16,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Mitra Auth"
+                    "Auth"
                 ],
                 "summary": "Login",
                 "parameters": [
@@ -73,7 +73,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Mitra Auth"
+                    "Auth"
                 ],
                 "summary": "Refresh access token",
                 "parameters": [
@@ -141,7 +141,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Mitra"
+                    "User"
                 ],
                 "summary": "Get me",
                 "responses": {
@@ -268,7 +268,7 @@
                 },
                 "username": {
                     "type": "string",
-                    "example": "redhajuanda"
+                    "example": "admin"
                 }
             }
         },

@@ -17,9 +17,9 @@ func GetLoggedInUser(ctx context.Context) User {
 	if v == nil {
 		return User{}
 	}
-	loggedInMitra := v.(*jwt.Token)
+	loggedInUser := v.(*jwt.Token)
 
-	claims := loggedInMitra.Claims.(jwt.MapClaims)
+	claims := loggedInUser.Claims.(jwt.MapClaims)
 
 	var id string
 	if val, ok := claims["id"].(string); ok {

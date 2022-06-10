@@ -2,7 +2,8 @@ package httplog
 
 import (
 	"context"
-	"go-clean-arch/infra/logger"
+	"go-clean-arch/pkg/logger"
+	"time"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/pkg/errors"
@@ -68,6 +69,28 @@ func (h *HTTPLog) LogError(ctx context.Context, statusCode int, errorsa string, 
 	_, err := h.db.Model(&model).Insert()
 	if err != nil {
 		return errors.Wrap(err, "error when inserting log error")
+	}
+	return nil
+}
+
+func (h *HTTPLog) CleanUpLog(ctx context.Context, limitTimeStamp time.Time) error {
+
+	// cleaning log outgoing request
+	_, err := h.db.Model(&LogOutgoingRequest{}).Where("created_at <=?", limitTimeStamp.Add(7*time.Hour)).Delete()
+	if err != nil {
+		return errors.Wrap(err, "error when cleaning log outgoing request")
+	}
+
+	// cleaning log incoming request
+	_, err = h.db.Model(&LogIncomingRequest{}).Where("created_at <=?", limitTimeStamp.Add(7*time.Hour)).Delete()
+	if err != nil {
+		return errors.Wrap(err, "error cleaning log incoming request")
+	}
+
+	// cleaning log error
+	_, err = h.db.Model(&LogError{}).Where("created_at <=?", limitTimeStamp.Add(7*time.Hour)).Delete()
+	if err != nil {
+		return errors.Wrap(err, "error when cleaning log error")
 	}
 	return nil
 }

@@ -1,53 +1,47 @@
 package cmd
 
 import (
-	"go-clean-arch/config"
-	"go-clean-arch/infra/db"
-	"go-clean-arch/infra/logger"
-	"os"
-	"os/signal"
-	"sync"
-	"syscall"
+	"go-clean-arch/app/cron"
+	"log"
 
-	"github.com/jasonlvhit/gocron"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+)
+
+const (
+	CRON_TYPE_TRANSACTION = "transaction"
+	CRON_TYPE_RECONCILE   = "reconcile"
+	CRON_TYPE_CLEANUP     = "cleanup"
 )
 
 var cronCmd = &cobra.Command{
 	Use: "cron",
 	Run: func(_ *cobra.Command, _ []string) {
-
-		cfg := config.LoadDefault()
-
-		log := logger.New(cfg.Server.NAME, Version)
-		logger.SetFormatter(&logrus.JSONFormatter{})
-
-		db := db.NewGoPG(cfg)
-		defer func() {
-			log.Info("closing db connection")
-			db.Close()
-		}()
-
-		// new scheduler
-		cron := gocron.NewScheduler()
-		wg := &sync.WaitGroup{}
-
-		// register scheduler
-		// payment.RegisterScheduler(cfg, log, paymentSvc, cron, wg)
-
-		signalChan := make(chan os.Signal, 1)
-		signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-
-		cron.Start()
-		log.Info("cron is running")
-		log.Info("jobs", cron.Jobs())
-
-		<-signalChan
-
-		cron.Clear()
-		wg.Wait()
-
-		log.Info("exiting gracefully")
+		log.Println("use -h to show available commands")
 	},
+}
+
+var cronTransactionCmd = &cobra.Command{
+	Use: "transaction",
+	Run: func(_ *cobra.Command, _ []string) {
+		startCron(CRON_TYPE_TRANSACTION)
+	},
+}
+
+var cronReconcileCmd = &cobra.Command{
+	Use: "reconcile",
+	Run: func(_ *cobra.Command, _ []string) {
+		startCron(CRON_TYPE_RECONCILE)
+	},
+}
+
+var cronCleanUpCmd = &cobra.Command{
+	Use: CRON_TYPE_CLEANUP,
+	Run: func(_ *cobra.Command, _ []string) {
+		startCron(CRON_TYPE_CLEANUP)
+	},
+}
+
+func startCron(cronType string) {
+	c := cron.New()
+	c.Start(cronType)
 }

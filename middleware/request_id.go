@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"go-clean-arch/infra/logger"
+	"go-clean-arch/pkg/logger"
 
 	"github.com/labstack/echo/v4"
 )

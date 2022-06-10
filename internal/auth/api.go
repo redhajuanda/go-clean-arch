@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"go-clean-arch/config"
+	"go-clean-arch/configs"
 	"go-clean-arch/internal/ierr"
 	"go-clean-arch/shared/response"
 
@@ -9,8 +9,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-// RegisterModule registers a new auth module
-func RegisterModule(r echo.Group, cfg *config.Config, service IService) {
+// RegisterAPI registers a new auth module
+func RegisterAPI(r echo.Group, cfg *configs.Config, service IService) {
 	handler := handler{cfg, service}
 
 	r.POST("/auth/login", handler.login)
@@ -18,13 +18,13 @@ func RegisterModule(r echo.Group, cfg *config.Config, service IService) {
 }
 
 type handler struct {
-	cfg     *config.Config
+	cfg     *configs.Config
 	service IService
 }
 
 // login godoc
 // @Router /auth/login [post]
-// @Tags Mitra Auth
+// @Tags Auth
 // @Summary Login
 // @Description Login
 // @Accept json
@@ -58,7 +58,7 @@ func (h handler) login(c echo.Context) error {
 
 // refreshToken godoc
 // @Router /auth/token/refresh [post]
-// @Tags Mitra Auth
+// @Tags Auth
 // @Summary Refresh access token
 // @Description Refresh access token
 // @Accept json

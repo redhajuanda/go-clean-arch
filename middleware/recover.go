@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"fmt"
-	"go-clean-arch/infra/logger"
+	"go-clean-arch/pkg/logger"
 	"runtime"
 
 	"github.com/labstack/echo/v4"

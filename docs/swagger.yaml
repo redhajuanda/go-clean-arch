@@ -63,7 +63,7 @@ definitions:
         minLength: 8
         type: string
       username:
-        example: redhajuanda
+        example: admin
         type: string
     required:
     - password
@@ -128,7 +128,7 @@ paths:
             $ref: '#/definitions/Internal'
       summary: Login
       tags:
-      - Mitra Auth
+      - Auth
   /auth/token/refresh:
     post:
       consumes:
@@ -166,7 +166,7 @@ paths:
             $ref: '#/definitions/Internal'
       summary: Refresh access token
       tags:
-      - Mitra Auth
+      - Auth
   /me:
     get:
       consumes:
@@ -192,7 +192,7 @@ paths:
       - BearerToken: []
       summary: Get me
       tags:
-      - Mitra
+      - User
 securityDefinitions:
   BasicAuth:
     type: basic

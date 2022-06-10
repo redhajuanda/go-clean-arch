@@ -12,10 +12,24 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: capioteknologi/go-clean-arch-be/go-clean-arch-be
+          name: capioteknologi/go-clean-arch/development
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           registry: docker.pkg.github.com
           tags: "latest"
           dockerfile: build/Dockerfile
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd go-clean-arch && make pull-up
+          host: ${{ secrets.HOST }}
+          username: koperasi
+          privateKey: ${{ secrets.PRIVATE_KEY}}
+        env:
+          CI: true

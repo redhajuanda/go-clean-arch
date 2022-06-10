@@ -1,17 +1,5 @@
-# development:
-#   dialect: mysql
-#   datasource: ${DB_USERNAME}:${DB_PASSWORD}@/${DB_NAME}?parseTime=true
-#   dir: scripts/migrations/postgres
-#   table: migrations
-
-# seed:
-#   dialect: mysql
-#   datasource: ${DB_USERNAME}:${DB_PASSWORD}@/${DB_NAME}?parseTime=true
-#   dir: database/seeds
-#   table: seeds
-
 development:
   dialect: postgres
   datasource: host=${DB_HOST} port=${DB_PORT} dbname=${DB_NAME} user=${DB_USERNAME} password=${DB_PASSWORD} sslmode=disable
   dir: scripts/migrations/postgres
-  table: migrations
+  table: gorp_migrations

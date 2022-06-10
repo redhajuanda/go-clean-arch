@@ -3,12 +3,12 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"go-clean-arch/config"
+	"go-clean-arch/configs"
 
 	_ "github.com/lib/pq"
 )
 
-func NewPostgres(cfg *config.Config) *sql.DB {
+func NewPostgres(cfg *configs.Config) *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		cfg.Database.Host,
